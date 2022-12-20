@@ -1,6 +1,6 @@
 # PFresGO: an attention mechanism-based deep-learning approach for protein annotation by integrating gene ontology inter-relationships
 
-PFresGO is an attention-based deep-learning approach that incorporates hierarchical structures in Gene Ontology (GO) graphs and advances in natural language processing algorithms for the func-tional annotation of proteins.
+PFresGO is an attention-based deep-learning approach that incorporates hierarchical structures in Gene Ontology (GO) graphs and advances in natural language processing algorithms for the functional annotation of proteins.
 
 This repository contains script which were used to train the PFresGO model together with the scripts for conducting protein function prediction.
 
