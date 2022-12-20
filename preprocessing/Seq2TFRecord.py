@@ -182,7 +182,7 @@ class GenerateTFRecord(object):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-annot', type=str, default='../Datasets/nrPDB-GO_2019.06.18_annot.tsv', help="Input file (*.tsv) with preprocessed annotations.")
-    parser.add_argument('-prot_list', type=str, default='../Datasets/nrPDB-GO_2019.06.18_valid.txt', help="Input file (*.txt) with a set of protein IDs with distMAps in npz_dir.")
+    parser.add_argument('-prot_list', type=str, default='../Datasets/nrPDB-GO_2019.06.18_valid.txt', help="Input file (*.txt) with a set of protein PDB IDs.")
     parser.add_argument('-seqres', type=str, default='../Datasets/nrPDB-GO_2019.06.18_sequences.fasta', help="PDB chain seqres fasta.")
     parser.add_argument('-num_threads', type=int, default=3, help="Number of threads (CPUs) to use in the computation.")
     parser.add_argument('-num_shards', type=int, default=3, help="Number of tfrecord files per protein set.")
