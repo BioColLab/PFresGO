@@ -38,7 +38,7 @@ then put your own fasta format protein sequences into ./Datasets/ and run:
 
 `fasta-embedding.py --seq_path './Datasets/nrPDB-GO_2019.06.18_sequences.fasta'`
 
-The detailed configuration can refer to https://colab.research.google.com/drive/1TUj-ayG3WO52n5N50S7KH9vtt6zRkdmj?usp=sharing#scrollTo=QMoeBQnUCK_E
+The detailed configuration can refer to https://github.com/agemagician/ProtTrans
 
 ### label_embedding.py - this script is to generate GO term embedding 
 
