@@ -12,10 +12,11 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 #@title Load ProtT5 in half-precision. { display-mode: "form" }
 # Load ProtT5 in half-precision (more specifically: the encoder-part of ProtT5-XL-U50)
 def get_T5_model():
-    model = T5EncoderModel.from_pretrained("./protT5/protT5_checkpoint/", torch_dtype=torch.float16)
-    model = model.to(device) # move model to GPU
-    model = model.eval() # set model to evaluation model
-    tokenizer = T5Tokenizer.from_pretrained("Rostlab/prot_t5_xl_uniref50", do_lower_case=False )
+   
+    model = T5EncoderModel.from_pretrained("Rostlab/prot_t5_xl_half_uniref50-enc")
+    model = model.to(device)  # move model to GPU
+    model = model.eval()  # set model to evaluation model
+    tokenizer = T5Tokenizer.from_pretrained('Rostlab/prot_t5_xl_half_uniref50-enc', do_lower_case=False)
 
     return model, tokenizer
 
@@ -150,6 +151,7 @@ if __name__ == "__main__":
     seqs = read_fasta(args.seq_path)
 
     # Compute embeddings and/or secondary structure predictions
+    
     results = get_embeddings(model, tokenizer, seqs, args.per_residue, args.per_protein)
 
     # Store per-residue embeddings
