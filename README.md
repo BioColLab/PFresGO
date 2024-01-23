@@ -18,7 +18,7 @@ If you want to trian PFresGO, run:
 
 ### predict.py - this script is to make protrein function prediction. 
 
-If you want to use PFresGO for prediction, download the trained model from https://monash.bioweb.cloud.edu.au/Clarion/
+If you want to use PFresGO for prediction, download the trained model from https://huggingface.co/datasets/Biocollab/PFresGO/tree/main
 
 Then you should prepare your sequence file in the fasta format, generate protein residual level embedding (follow script fasta-embedding.py), and put the resulting .h5 format file into ./Datasets/ and run:
 
