@@ -57,7 +57,7 @@ class PFresGO(object):
         tf.keras.backend.clear_session()
         self.model = tf.keras.Model(inputs=[input_seq, inputs_padding,res_embed], outputs=output_layer)
         optimizer = tf.keras.optimizers.Adam(learning_rate=lr, beta_1=0.95, beta_2=0.95)
-        self.model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['acc'])
+        self.model.compile(optimizer=optimizer, loss='binary_crossentropy')
         print (self.model.summary())
 
     def train(self, train_tfrecord_fn, valid_tfrecord_fn, epochs=100, batch_size=64, pad_len=1000, ont='cc'):
