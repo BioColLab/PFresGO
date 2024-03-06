@@ -65,23 +65,16 @@ def propagate_go_preds(Y_hat, goterms):
 
 
 class Method(object):
-    def __init__(self, method_name, pckl_fn):
+    def __init__(self, method_name, pckl_fn,ontology):
         annot = pickle.load(open(pckl_fn, 'rb'))
         self.Y_true = annot['Y_true']
         self.Y_pred = annot['Y_pred']
         self.goterms = annot['goterms']
         # self.gonames = annot['gonames']
         self.proteins = annot['proteins']
-        # self.ont = annot['ontology']
-        self.ont = 'cc'
+        self.ont = ontology
         self.method_name = method_name
         self._propagate_preds()
-        if self.ont == 'ec':
-            goidx = [i for i, goterm in enumerate(self.goterms) if goterm.find('-') == -1]
-            self.Y_true = self.Y_true[:, goidx]
-            self.Y_pred = self.Y_pred[:, goidx]
-            self.goterms = [self.goterms[idx] for idx in goidx]
-            self.gonames = [self.gonames[idx] for idx in goidx]
 
     def _propagate_preds(self):
         self.Y_pred = propagate_go_preds(self.Y_pred, self.goterms)
@@ -192,7 +185,7 @@ class Method(object):
             Y_true = self.Y_true
             Y_pred = self.Y_pred
 
-        FPR, TPR, threshold = roc_curve(Y_true, Y_pred, pos_label=1)
+        FPR, TPR, threshold = roc_curve(Y_true.flatten(), Y_pred.flatten(), pos_label=1)
         AUC = auc(FPR, TPR)
         return AUC
 
@@ -211,7 +204,6 @@ class Method(object):
 
     def fmax(self, keep_pidx):
         fscore, _, _, _ = self._protein_centric_fmax(keep_pidx=keep_pidx)
-
         return max(fscore)
 
     def macro_aupr(self, keep_pidx=None):
@@ -301,18 +293,17 @@ def protein_centric_aupr_curves(methods, title, colors, prot_idx):
 
 
 if __name__ == "__main__":
-    methods = []
-    methods.append(Method('PFresgo', 'MF_PFresGO_results.pckl'))
-    #methods.append(Method('PFresgo', 'BP_PFresGO_results.pckl'))
-    #methods.append(Method('PFresgo', 'CC_PFresGO_results.pckl'))
+
+    method= Method('PFresgo', 'MF_PFresGO_results.pckl', "mf")  #ontology: "mf", "bp" or "cc"
 
     test_prots, seqid_mtrx = load_test_prots('./Datasets/nrPDB-GO_2019.06.18_test.csv')
     prot_idx = np.where(seqid_mtrx[:, 4] == 1)[0]
-    vals = {}
-    for method in methods:
-        micro_aupr, macro_aupr, _ = method._function_centric_aupr(prot_idx)
-        auc = method.AUC
-        fmax = method.fmax(prot_idx)
+
+    micro_aupr, macro_aupr, _ = method._function_centric_aupr(keep_pidx=prot_idx)
+    auc = method.AUC(keep_pidx=prot_idx)
+    fmax = method.fmax(keep_pidx=prot_idx)
+
+
 
 
 
